@@ -5,4 +5,16 @@ function getComputerChoice(){
     return cpuChoice;
 }
 
-console.log(getComputerChoice());
+function getPlayerSelection(){
+    let playerSelection = prompt("Rock, Paper, or Scissors?");
+    let choice = playerSelection.toLowerCase();
+    console.log(typeof choice);
+    //console.log(choice);
+    while(choice !== "rock" && choice !== "paper" && choice !== "scissors"){
+        playerSelection = prompt("Rock, Paper, or Scissors?");
+        choice = playerSelection.toLowerCase();
+    }
+
+    return choice;
+}
+console.log(getPlayerSelection());
