@@ -59,5 +59,32 @@ function playRound(playerChoice,computerChoice){
     return result;    
 }
 
+function game(){
+    let round = 0;
+    let player = 0;
+    let cpu = 0;
+    let result;
+    while(round < 5){
+        result = playRound(getPlayerSelection(), getComputerChoice())
+        console.log(result);
+        if(result.includes("Win")){
+            player++;
+        }
+        else if(result.includes("Lose")){
+            cpu++;
+        }
+        round++;
+    }
+    if(player > cpu){
+        return `You win  ${player} - ${cpu}`;
+    }
+    else if (cpu > player){
+        return `You win ${cpu} - ${player}`;
+    }
+    else{
+        return `Tie game!`
+    }
+}
 
-console.log(playRound(getPlayerSelection(), getComputerChoice()));
+
+console.log(game());
