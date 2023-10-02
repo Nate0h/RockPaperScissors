@@ -81,7 +81,7 @@ img {
 
 button:hover {
     cursor: pointer;
-    background: blue;
+    background: red;
     transition: all .6s ease;
 
 }
