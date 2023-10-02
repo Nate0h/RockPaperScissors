@@ -1,3 +1,7 @@
+
+const userScore = document.getElementById("user-score");
+const computerScore = document.getElementById("computer-score");
+const result = document.getElementById("result");
 let choices = new Array("rock","paper","scissors");
 let cpu = 0;
 let player = 0;
@@ -7,122 +11,110 @@ function getComputerChoice(){
     return cpuChoice;
 }
 
-/*function getPlayerSelection(){
-    let playerSelection = prompt("Rock, Paper, or Scissors?");
-    let choice = playerSelection.toLowerCase();
-    //console.log(typeof choice);
-    //console.log(choice);
-    while(choice !== "rock" && choice !== "paper" && choice !== "scissors"){
-        playerSelection = prompt("Rock, Paper, or Scissors?");
-        choice = playerSelection.toLowerCase();
-    }
 
-    return choice;
-}*/
-
-function playRound(e){
+function playRound(choice){
     
     let computerChoice = getComputerChoice();
-    let playerChoice = e.target.className;
-    let result;
+    let playerChoice = choice;
+    let outcome;
     
     switch(playerChoice){
 
         case "rock":
             if(computerChoice == "scissors"){
-                result = "You Win!..Rock beats Scissors";
+                outcome = "You Win!..Rock beats Scissors";
                 player++;
+                userScore.innerHTML = player; 
             }
             else if(computerChoice == "paper"){
-                result = "You Lose..Paper beats Rock";
+                outcome = "You Lose..Paper beats Rock";
                 cpu++;
+                computerScore.innerHTML = cpu;
             }
             else{
-                result = "Tie";
+                outcome = "Tie";
             }
             break;
         case "paper":
             if(computerChoice == "scissors"){
-                result = "You Lose...Scissors beats Paper";
-                cpu++
+                outcome = "You Lose...Scissors beats Paper";
+                cpu++;
+                computerScore.innerHTML = cpu;
             }
             else if(computerChoice == "rock"){
-                result = "You Win!..Paper beats Rock";
+                outcome = "You Win!..Paper beats Rock";
                 player++;
+                userScore.innerHTML = player; 
             }
             else{
-                result = "Tie";
+                outcome = "Tie";
             }
             break;
         case "scissors":
             if(computerChoice == "paper"){
-                result = "You Win!..Scissors beats Paper";
+                outcome = "You Win!..Scissors beats Paper";
                 player++;
+                userScore.innerHTML = player; 
             }
             else if(computerChoice == "rock"){
-                result = "You Lose..Rock beats Scissors"; 
-                cpu++;  
+                outcome = "You Lose..Rock beats Scissors"; 
+                cpu++;
+                computerScore.innerHTML = cpu;  
             }
             else{
-                result = "Tie";
+                outcome = "Tie";
             }
             break;
     }
-    const results = document.getElementById('results');
-    const para = document.createElement("p");
-    result += ` player: ${player} - cpu: ${cpu}`;  
-    para.textContent = result;
-    results.appendChild(para);
+    result.innerHTML = outcome;
+   
 
     if(cpu == 5){
         const final = document.createElement("p");
         final.textContent = "CPU Wins the Game";
-        results.appendChild(final);
+        result.appendChild(final);
+        userScore.innerHTML = 0; 
+        computerScore.innerHTML = 0;
         player = 0;
         cpu = 0;
     }
     if(player == 5){
         const final = document.createElement("p");
         final.textContent = "You Win the Game!"
-        results.appendChild(final);
+        result.appendChild(final);
+        userScore.innerHTML = 0; 
+        computerScore.innerHTML = 0;
         player = 0;
         cpu = 0;
     }
-    console.log(result);
-    //return result;   
+    console.log(outcome);
+    //return outcome;   
 }
 
 function game(){
     let round = 0;
     let player = 0;
     let cpu = 0;
-    let result;
+    let outcome;
     while(round < 5){
-        result = playRound(getPlayerSelection(), getComputerChoice())
-        console.log(result);
-        if(result.includes("Win")){
+        outcome = playRound(getPlayerSelection(), getComputerChoice())
+        console.log(outcome);
+        if(outcome.includes("Win")){
             player++;
         }
-        else if(result.includes("Lose")){
+        else if(outcome.includes("Lose")){
             cpu++;
         }
         round++;
-    }
-    if(player > cpu){
-        return `You win  ${player} - ${cpu}`;
-    }
-    else if (cpu > player){
-        return `You win ${cpu} - ${player}`;
-    }
-    else{
-        return `Tie game!`
     }
 }
 
 //DOM Section 
 const buttons = document.querySelectorAll('button');
-console.log(buttons.length);
 
 //event listener
-buttons.forEach(button => button.addEventListener('click', playRound));
+buttons.forEach(button => button.addEventListener('click', e => {
+    playRound(button.className);
+})
+);
 //console.log(game());
